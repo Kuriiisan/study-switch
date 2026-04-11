@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Switch | 勉強の詰まりチェック 5問版</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2430;
+      --sub:#5f6b85;
+      --accent:#6f7bf7;
+      --accent2:#eef1ff;
+      --line:#e5e9f4;
+      --ok:#eef7ee;
+      --okline:#d8ebd8;
+      --wait:#fff7eb;
+      --waitline:#f1d7a8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    .wrap{
+      max-width:800px;
+      margin:0 auto;
+      padding:20px 16px 56px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px 18px;
+      box-shadow:0 8px 24px rgba(34,52,110,.05);
+    }
+    .hero{
+      background:linear-gradient(180deg,#ffffff 0%, #f5f7ff 100%);
+    }
+    .eyebrow{
+      display:inline-block;
+      font-size:13px;
+      color:var(--accent);
+      background:var(--accent2);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+    h1{
+      font-size:30px;
+      line-height:1.3;
+      margin:0 0 12px;
+      letter-spacing:-0.02em;
+    }
+    h2{
+      font-size:22px;
+      line-height:1.4;
+      margin:0 0 14px;
+    }
+    .lead{
+      color:var(--sub);
+      margin:0;
+      font-size:16px;
+    }
+    .step{
+      margin-top:18px;
+      display:none;
+    }
+    .step.active{
+      display:block;
+    }
+    .stepno{
+      font-size:13px;
+      font-weight:700;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .options{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    button.option{
+      width:100%;
+      text-align:left;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:16px;
+      padding:16px 14px;
+      color:var(--text);
+      font-size:16px;
+      cursor:pointer;
+    }
+    button.option:hover{
+      border-color:#cfd7ff;
+      background:#fafbff;
+    }
+    .pill{
+      display:inline-block;
+      font-size:13px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent2);
+      color:var(--accent);
+      font-weight:700;
+      margin-bottom:10px;
+    }
+    .resultbox{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:#f9faff;
+      border:1px solid var(--line);
+    }
+    .label{
+      font-size:13px;
+      color:var(--sub);
+      margin-bottom:4px;
+    }
+    .value{
+      font-size:17px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    .tip{
+      font-size:18px;
+      font-weight:800;
+      line-height:1.5;
+      margin-bottom:12px;
+    }
+    .note{
+      color:var(--sub);
+      font-size:15px;
+    }
+    .extra{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      display:none;
+    }
+    .sell{
+      background:var(--ok);
+      border:1px solid var(--okline);
+    }
+    .wait{
+      background:var(--wait);
+      border:1px solid var(--waitline);
+    }
+    .cta{
+      display:inline-block;
+      margin-top:14px;
+      padding:14px 18px;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      border-radius:14px;
+      font-weight:700;
+    }
+    .cta.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid #cfd7ff;
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+    .muted{
+      color:var(--sub);
+      font-size:14px;
+      margin-top:8px;
+    }
+    .smallcode{
+      font-size:12px;
+      color:var(--sub);
+      word-break:break-all;
+      margin-top:8px;
+    }
+    @media (min-width:700px){
+      .wrap{padding-top:28px}
+      .card{padding:30px 28px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card hero">
+      <div class="eyebrow">Study Switch / 5問版</div>
+      <h1>勉強の詰まりチェック</h1>
+      <p class="lead">
+        性格を決める診断ではありません。<br>
+        今のあなたに合いそうな <strong>「次の1手」</strong> を見つけます。
+      </p>
+
+      <div id="step1" class="step active">
+        <div class="stepno">STEP 1 / 5</div>
+        <h2>今いちばん近いのは？</h2>
+        <div class="options">
+          <button class="option" data-step="1" data-value="forget">覚えたのに、すぐ抜ける</button>
+          <button class="option" data-step="1" data-value="input">説明されても、入ってこない</button>
+          <button class="option" data-step="1" data-value="solve">わかった気はするのに、解けない</button>
+          <button class="option" data-step="1" data-value="start">やらなきゃと思うのに、始められない</button>
+          <button class="option" data-step="1" data-value="mistake">わかってるのに、ミスで落とす</button>
+          <button class="option" data-step="1" data-value="performance">普段はできるのに、本番で出せない</button>
+        </div>
+      </div>
+
+      <div id="step2" class="step">
+        <div class="stepno">STEP 2 / 5</div>
+        <h2>最初に入りやすいのは？</h2>
+        <div class="options">
+          <button class="option" data-step="2" data-value="read">読んで整理する</button>
+          <button class="option" data-step="2" data-value="listen">聞いてつかむ</button>
+          <button class="option" data-step="2" data-value="visual">図や流れで見る</button>
+          <button class="option" data-step="2" data-value="example">具体例から入る</button>
+        </div>
+      </div>
+
+      <div id="step3" class="step">
+        <div class="stepno">STEP 3 / 5</div>
+        <h2>勉強したあと、ありがちなのは？</h2>
+        <div class="options">
+          <button class="option" data-step="3" data-value="forget">その場ではわかるけど、あとで出てこない</button>
+          <button class="option" data-step="3" data-value="solve">理解した気はするけど、問題にすると止まる</button>
+          <button class="option" data-step="3" data-value="input">最初の時点で頭に入る感じがしない</button>
+          <button class="option" data-step="3" data-value="start">やる前のハードルが高くて後回しになる</button>
+        </div>
+      </div>
+
+      <div id="step4" class="step">
+        <div class="stepno">STEP 4 / 5</div>
+        <h2>勉強するとき、自然とやりがちなのは？</h2>
+        <div class="options">
+          <button class="option" data-step="4" data-value="read">とりあえず読む・見返す</button>
+          <button class="option" data-step="4" data-value="listen">説明や講義を聞く</button>
+          <button class="option" data-step="4" data-value="visual">図や表で整理する</button>
+          <button class="option" data-step="4" data-value="example">例題や問題から入る</button>
+        </div>
+      </div>
+
+      <div id="step5" class="step">
+        <div class="stepno">STEP 5 / 5</div>
+        <h2>今いちばん変えたいのは？</h2>
+        <div class="options">
+          <button class="option" data-step="5" data-value="forget">覚えておける感じ</button>
+          <button class="option" data-step="5" data-value="input">入ってくる感じ</button>
+          <button class="option" data-step="5" data-value="solve">解ける感じ</button>
+          <button class="option" data-step="5" data-value="start">始めやすさ</button>
+          <button class="option" data-step="5" data-value="mistake">ミスの減り方</button>
+          <button class="option" data-step="5" data-value="performance">本番での安定感</button>
+        </div>
+      </div>
+
+      <div id="result" class="step">
+        <div class="stepno">RESULT</div>
+        <span class="pill" id="resultMode"></span>
+        <h2>今日の1手</h2>
+
+        <div class="resultbox">
+          <div class="label">今の詰まり</div>
+          <div class="value" id="resultBlock"></div>
+
+          <div class="label">入りやすい入口</div>
+          <div class="value" id="resultEntry"></div>
+
+          <div class="label">まずやる1手</div>
+          <div class="tip" id="resultTip"></div>
+
+          <div class="label">一言補足</div>
+          <div class="note" id="resultNote"></div>
+
+          <div class="label">今いちばん変えたいこと</div>
+          <div class="note" id="resultGoal"></div>
+        </div>
+
+        <div id="solveOffer" class="extra sell">
+          <strong>さらに詳しく知りたい人へ</strong><br>
+          「わかった気はするのに解けない人の改善法」のnote記事を用意しています。<br>
+          まずはタイプ別の考え方を整理したい人向けです。<br>
+          <a class="cta" id="solveNoteLink" href="https://note.com/charm_prawn1128/n/n89b37d47666b" target="_blank">noteで詳しい改善法を見る</a>
+          <div class="smallcode">今のリンク先: <span id="noteUrlText">https://note.com/charm_prawn1128/n/n89b37d47666b</span></div>
+          <div class="muted">noteのURLが変わるなら、このリンク先だけ差し替えればOKです。</div>
+        </div>
+
+        <div id="waitOffer" class="extra wait">
+          <strong>このタイプの詳しい改善法は準備中です</strong><br>
+          今後追加予定です。まずは上の「今日の1手」から試してみてください。
+        </div>
+
+        <div class="row">
+          <a class="cta secondary" href="#" id="restartBtn">もう一度やる</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const NOTE_URL = 'https://note.com/charm_prawn1128/n/n89b37d47666b';
+
+    const answers = { q1:null, q2:null, q3:null, q4:null, q5:null };
+
+    const blockLabel = {
+      forget: '覚えたのに、すぐ抜ける',
+      input: '説明されても、入ってこない',
+      solve: 'わかった気はするのに、解けない',
+      start: 'やらなきゃと思うのに、始められない',
+      mistake: 'わかってるのに、ミスで落とす',
+      performance: '普段はできるのに、本番で出せない'
+    };
+
+    const entryLabel = {
+      read: '読んで整理する',
+      listen: '聞いてつかむ',
+      visual: '図や流れで見る',
+      example: '具体例から入る'
+    };
+
+    const modeLabel = {
+      forget: '定着立て直しモード',
+      input: '入口調整モード',
+      solve: '実戦変換モード',
+      start: '始動補助モード',
+      mistake: '取りこぼし修正モード',
+      performance: '本番再現モード'
+    };
+
+    const goalLabel = {
+      forget: '覚えておける感じ',
+      input: '入ってくる感じ',
+      solve: '解ける感じ',
+      start: '始めやすさ',
+      mistake: 'ミスの減り方',
+      performance: '本番での安定感'
+    };
+
+    const notes = {
+      forget: '読むだけだと「見たらわかる」で止まりやすいです。1回でも思い出す練習を入れると、本番でも出しやすくなります。',
+      input: '内容が難しいというより、入り方が合っていないだけのことがあります。自分に入りやすい入口を先に使うと、理解しやすくなります。',
+      solve: '「わかる」と「解ける」は別です。1問でも自力で解くと、知識が使える形に変わりやすくなります。',
+      start: 'やる気が出るのを待つより、始めるハードルを下げた方が動きやすいです。まずは短く始めるのがコツです。',
+      mistake: 'ミスは知識不足より、読み落としや確認不足で起こることも多いです。毎回同じ確認ポイントを1つ決めると減らしやすくなります。',
+      performance: '本番で力が出ないときは、知識不足より「出す練習」が足りていないことがあります。本番に近い形を少し混ぜるのが大事です。'
+    };
+
+    const tips = {
+      forget: {
+        read: '読んだあと1回、何も見ずに思い出す',
+        listen: '聞いたあと1回、自分の言葉で言い直す',
+        visual: '図を見たあと白紙でざっくり再現する',
+        example: '例を見たあと、その例を説明する'
+      },
+      input: {
+        read: '先に要点だけ1分読む',
+        listen: '先に全体説明を聞く',
+        visual: '先に全体図を見る',
+        example: '先に具体例を1つ見る'
+      },
+      solve: {
+        read: '説明を読んだら、その場で類題を1問だけ自力で解く',
+        listen: '解説を聞いたあと、すぐ1問だけ解く',
+        visual: '図で整理したあと、図を見ずに1問だけ解く',
+        example: '例を見たあと、似た問題を1問だけ自力で解く'
+      },
+      start: {
+        read: '最初の1ページだけ読む',
+        listen: '最初の5分だけ解説を聞く',
+        visual: '図を1個だけ見る',
+        example: '例を1個だけ見る'
+      },
+      mistake: {
+        read: '答えを見る前に「何を聞かれていたか」だけ1回確認する',
+        listen: '解く前に「何を聞かれてるか」を口で言ってから答える',
+        visual: '確認ポイントを1つだけ見てから答える',
+        example: '自分がよくやるミス例を1個だけ見てから解く'
+      },
+      performance: {
+        read: '要点を見たあと、時間を測って1問だけ解く',
+        listen: '解説を聞いたあと、本番形式で1問だけ解く',
+        visual: '図を見たあと、何も見ずに1問解く',
+        example: '典型例を見たあと、すぐ類題を1問解く'
+      }
+    };
+
+    function showStep(id){
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function chooseBlock(){
+      const counts = { forget:0, input:0, solve:0, start:0, mistake:0, performance:0 };
+      [answers.q1, answers.q3].forEach(v => { if(v) counts[v] += 1; });
+      counts[answers.q5] += 0.5;
+
+      let best = answers.q1;
+      let bestScore = -1;
+      for(const [k,v] of Object.entries(counts)){
+        if(v > bestScore){
+          best = k;
+          bestScore = v;
+        }
+      }
+      return best;
+    }
+
+    function chooseEntry(){
+      const counts = { read:0, listen:0, visual:0, example:0 };
+      counts[answers.q2] += 1;
+      counts[answers.q4] += 1;
+
+      let best = answers.q2;
+      let bestScore = -1;
+      for(const [k,v] of Object.entries(counts)){
+        if(v > bestScore){
+          best = k;
+          bestScore = v;
+        }
+      }
+      return best;
+    }
+
+    function renderResult(){
+      const block = chooseBlock();
+      const entry = chooseEntry();
+
+      document.getElementById('resultMode').textContent = modeLabel[block];
+      document.getElementById('resultBlock').textContent = blockLabel[block];
+      document.getElementById('resultEntry').textContent = entryLabel[entry];
+      document.getElementById('resultTip').textContent = tips[block][entry];
+      document.getElementById('resultNote').textContent = notes[block];
+      document.getElementById('resultGoal').textContent = goalLabel[answers.q5];
+
+      document.getElementById('solveNoteLink').href = NOTE_URL;
+      document.getElementById('noteUrlText').textContent = NOTE_URL;
+
+      const solveOffer = document.getElementById('solveOffer');
+      const waitOffer = document.getElementById('waitOffer');
+
+      if(block === 'solve'){
+        solveOffer.style.display = 'block';
+        waitOffer.style.display = 'none';
+      } else {
+        solveOffer.style.display = 'none';
+        waitOffer.style.display = 'block';
+      }
+
+      showStep('result');
+    }
+
+    document.querySelectorAll('button.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = btn.dataset.step;
+        const value = btn.dataset.value;
+
+        if(step === '1'){
+          answers.q1 = value;
+          showStep('step2');
+        } else if(step === '2'){
+          answers.q2 = value;
+          showStep('step3');
+        } else if(step === '3'){
+          answers.q3 = value;
+          showStep('step4');
+        } else if(step === '4'){
+          answers.q4 = value;
+          showStep('step5');
+        } else if(step === '5'){
+          answers.q5 = value;
+          renderResult();
+        }
+      });
+    });
+
+    document.getElementById('restartBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      answers.q1 = null;
+      answers.q2 = null;
+      answers.q3 = null;
+      answers.q4 = null;
+      answers.q5 = null;
+      showStep('step1');
+    });
+  </script>
+</body>
+</html>
