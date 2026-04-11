@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>わかった気はするのに解けない人の改善法</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2430;
+      --sub:#5f6b85;
+      --accent:#6f7bf7;
+      --accent2:#eef1ff;
+      --line:#e5e9f4;
+      --good:#eef7ee;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    .wrap{
+      max-width:760px;
+      margin:0 auto;
+      padding:20px 16px 56px;
+    }
+    .hero{
+      background:linear-gradient(180deg,#ffffff 0%, #f5f7ff 100%);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:28px 20px;
+      box-shadow:0 8px 24px rgba(34,52,110,.06);
+    }
+    .eyebrow{
+      display:inline-block;
+      font-size:13px;
+      color:var(--accent);
+      background:var(--accent2);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+    h1{
+      font-size:30px;
+      line-height:1.3;
+      margin:0 0 12px;
+      letter-spacing:-0.02em;
+    }
+    .lead{
+      font-size:16px;
+      color:var(--sub);
+      margin:0;
+    }
+    .cta{
+      display:inline-block;
+      margin-top:18px;
+      padding:14px 18px;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      border-radius:14px;
+      font-weight:700;
+    }
+    .note{
+      font-size:13px;
+      color:var(--sub);
+      margin-top:10px;
+    }
+    .section{
+      margin-top:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px 18px;
+      box-shadow:0 8px 24px rgba(34,52,110,.04);
+    }
+    h2{
+      font-size:22px;
+      margin:0 0 14px;
+      line-height:1.4;
+    }
+    .sub{
+      color:var(--sub);
+      margin-top:-6px;
+      margin-bottom:14px;
+      font-size:15px;
+    }
+    ul{
+      margin:0;
+      padding-left:20px;
+    }
+    li{margin:8px 0}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:16px;
+      padding:16px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:17px;
+    }
+    .price{
+      font-size:34px;
+      font-weight:800;
+      line-height:1.1;
+      margin:8px 0 2px;
+    }
+    .small{
+      font-size:13px;
+      color:var(--sub);
+    }
+    .steps{
+      counter-reset:step;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .steps li{
+      position:relative;
+      padding-left:42px;
+      margin:14px 0;
+    }
+    .steps li::before{
+      counter-increment:step;
+      content:counter(step);
+      position:absolute;
+      left:0;
+      top:0;
+      width:28px;
+      height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:var(--accent2);
+      color:var(--accent);
+      font-weight:800;
+      font-size:14px;
+    }
+    .footerbox{
+      background:var(--good);
+      border:1px solid #d8ebd8;
+      border-radius:18px;
+      padding:16px;
+      margin-top:18px;
+    }
+    .muted-link{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+    }
+    @media (min-width:700px){
+      .wrap{padding-top:28px}
+      .grid{grid-template-columns:1fr 1fr}
+      .hero{padding:36px 30px}
+      .section{padding:26px 24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Study Switch / 販売ページ試作版</div>
+      <h1>わかった気はするのに<br>解けない人の改善法</h1>
+      <p class="lead">
+        解説を読めば納得する。<br>
+        でも、自力で解こうとすると手が止まる。<br><br>
+        そんな人のために、<strong>「理解した」を「使える」に変える小さな修正法</strong>をまとめたPDFです。
+      </p>
+      <a class="cta" href="#buy">このPDFを見る</a>
+      <div class="note">まずは1本だけ試したい人向けの、軽めの実用教材を想定しています。</div>
+    </section>
+
+    <section class="section">
+      <h2>こんな人向け</h2>
+      <ul>
+        <li>解説を読めばわかるのに、自力だと解けない</li>
+        <li>勉強したはずなのに、問題になると止まる</li>
+        <li>まとめたり読んだりはしているのに、点につながらない</li>
+        <li>理解不足なのか、演習不足なのか、自分でもよくわからない</li>
+        <li>勉強法を全部変える前に、まずはズレだけ直したい</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>このPDFでわかること</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>なぜ「わかった気」になるのか</h3>
+          <p class="sub">解説を読むと納得するのに、問題になると止まる理由を整理します。</p>
+        </div>
+        <div class="card">
+          <h3>何が足りないのか</h3>
+          <p class="sub">理解不足なのか、出力不足なのか、見分けるヒントを入れます。</p>
+        </div>
+        <div class="card">
+          <h3>今日からやる3つの修正</h3>
+          <p class="sub">大きく変えなくていい、今の勉強に足しやすい改善策を載せます。</p>
+        </div>
+        <div class="card">
+          <h3>入り方別の工夫</h3>
+          <p class="sub">読む・聞く・図で見る・例から入る人それぞれのコツも入れます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>中身</h2>
+      <ol class="steps">
+        <li><strong>なぜ「わかるのに解けない」が起こるのか</strong><br>まずは「理解した」と「自力で答えを出せる」の違いをはっきりさせます。</li>
+        <li><strong>やりがちな逆効果</strong><br>読むだけ、まとめるだけ、解説を見て満足する、などのズレを整理します。</li>
+        <li><strong>今日からやる3つの修正</strong><br>勉強の最後に何を足すと「解ける」に近づくかを具体化します。</li>
+        <li><strong>入口別の改善法</strong><br>読む人、聞く人、図で見る人、例から入る人で分けて説明します。</li>
+        <li><strong>1日の勉強テンプレ</strong><br>入力 → 1問出力 → 修正 の流れを、そのまま真似しやすい形でまとめます。</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>読むとどう変わる？</h2>
+      <ul>
+        <li>「もっと頑張る」ではなく「どこを直せばいいか」が見えやすくなる</li>
+        <li>読むだけ・まとめるだけで終わりにくくなる</li>
+        <li>問題を解くことへのハードルが下がる</li>
+        <li>今の勉強を大きく壊さずに修正できる</li>
+      </ul>
+
+      <div class="footerbox">
+        <strong>このPDFの特徴</strong><br>
+        気合いで乗り切る話ではありません。才能や性格の話でもありません。<br>
+        <strong>今の勉強のどこを少し変えれば「解ける」に近づくか</strong>に絞っています。
+      </div>
+    </section>
+
+    <section class="section" id="buy">
+      <h2>価格</h2>
+      <div class="price">500円</div>
+      <div class="small">まずは試しやすい軽めの価格を想定した例です。</div>
+
+      <div class="grid" style="margin-top:14px;">
+        <div class="card">
+          <h3>想定ボリューム</h3>
+          <p class="sub">5〜8ページ / スマホでも読みやすい長さ / すぐ試せる実用重視</p>
+        </div>
+        <div class="card">
+          <h3>購入導線の例</h3>
+          <p class="sub">note記事販売 / PDF販売 / LINE登録後に案内 などにそのまま置き換えられます。</p>
+        </div>
+      </div>
+
+      <a class="cta" href="#">購入ページへ進む</a>
+      <div class="note">ここはあとで note や BOOTH のURLに差し替える想定です。</div>
+    </section>
+
+    <section class="section">
+      <h2>購入前のひとこと</h2>
+      <p class="sub" style="margin:0;">
+        勉強法を全部変える必要はありません。<br>
+        ただ、<strong>「わかった」で止まっている場所</strong>は直せます。<br><br>
+        このPDFは、そのズレを小さくするための1本です。
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>使い方のイメージ</h2>
+      <p class="sub">
+        診断サイトで「解けない」が出た人を、この販売ページに案内する流れを想定しています。<br>
+        あとで別商品を作るなら、同じ形で「ミスる人向け」「すぐ忘れる人向け」も増やせます。
+      </p>
+      <a class="muted-link" href="index.html">診断サイトに戻る</a>
+    </section>
+  </div>
+</body>
+</html>
