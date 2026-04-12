@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Switch Plus | 15問詳しい診断 強化版</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2430;
+      --sub:#5f6b85;
+      --accent:#6f7bf7;
+      --accent2:#eef1ff;
+      --line:#e5e9f4;
+      --good:#eef7ee;
+      --goodline:#d8ebd8;
+      --warn:#fff7eb;
+      --warnline:#f1d7a8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+      line-height:1.7;
+    }
+    .wrap{
+      max-width:940px;
+      margin:0 auto;
+      padding:20px 16px 56px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px 18px;
+      box-shadow:0 8px 24px rgba(34,52,110,.05);
+    }
+    .hero{
+      background:linear-gradient(180deg,#fff 0%,#f5f7ff 100%);
+    }
+    .eyebrow{
+      display:inline-block;
+      font-size:13px;
+      color:var(--accent);
+      background:var(--accent2);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+    h1{
+      font-size:30px;
+      line-height:1.3;
+      margin:0 0 12px;
+    }
+    h2{
+      font-size:22px;
+      line-height:1.4;
+      margin:0 0 12px;
+    }
+    h3{
+      font-size:18px;
+      margin:0 0 8px;
+    }
+    p{
+      margin:0 0 12px;
+    }
+    .lead{
+      color:var(--sub);
+    }
+    .step{
+      margin-top:18px;
+      display:none;
+    }
+    .step.active{
+      display:block;
+    }
+    .stepno{
+      font-size:13px;
+      font-weight:700;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .options{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+    button.option{
+      width:100%;
+      text-align:left;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      padding:16px 14px;
+      font-size:16px;
+      color:var(--text);
+      cursor:pointer;
+      -webkit-appearance:none;
+      appearance:none;
+    }
+    button.option:hover{
+      border-color:#cfd7ff;
+      background:#fafbff;
+    }
+    .pill{
+      display:inline-block;
+      font-size:13px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent2);
+      color:var(--accent);
+      font-weight:700;
+      margin-bottom:10px;
+    }
+    .resultbox,.sectionbox{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:#f9faff;
+      border:1px solid var(--line);
+    }
+    .goodbox{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:var(--good);
+      border:1px solid var(--goodline);
+    }
+    .warnbox{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:var(--warn);
+      border:1px solid var(--warnline);
+    }
+    .label{
+      font-size:13px;
+      color:var(--sub);
+      margin-bottom:4px;
+    }
+    .value{
+      font-size:17px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    .tip{
+      font-size:18px;
+      font-weight:800;
+      line-height:1.5;
+      margin-bottom:12px;
+    }
+    .note{
+      color:var(--sub);
+      font-size:15px;
+    }
+    ul{
+      margin:0;
+      padding-left:20px;
+    }
+    li{
+      margin:8px 0;
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+    .btn{
+      display:inline-block;
+      padding:14px 18px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid #cfd7ff;
+      background:#fff;
+      color:var(--accent);
+      cursor:pointer;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (min-width:800px){
+      .wrap{padding-top:28px}
+      .card{padding:30px 28px}
+      .grid{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card hero">
+      <div class="eyebrow">Study Switch Plus / 15問強化版</div>
+      <h1>15問でわかる、<br>あなたの勉強の詰まり診断</h1>
+      <p class="lead">
+        主課題と副課題、今はやらなくていいこと、1週間後の目標まで返す版です。
+      </p>
+
+      <div id="step1" class="step active">
+        <div class="stepno">STEP 1 / 15</div>
+        <h2>今いちばん近いのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(1,'block','forget')">覚えたのに、すぐ抜ける</button>
+          <button type="button" class="option" onclick="selectAnswer(1,'block','input')">説明されても、入ってこない</button>
+          <button type="button" class="option" onclick="selectAnswer(1,'block','solve')">わかった気はするのに、解けない</button>
+          <button type="button" class="option" onclick="selectAnswer(1,'block','start')">やらなきゃと思うのに、始められない</button>
+          <button type="button" class="option" onclick="selectAnswer(1,'block','mistake')">わかってるのに、ミスで落とす</button>
+          <button type="button" class="option" onclick="selectAnswer(1,'block','performance')">普段はできるのに、本番で出せない</button>
+        </div>
+      </div>
+
+      <div id="step2" class="step">
+        <div class="stepno">STEP 2 / 15</div>
+        <h2>勉強していて一番多いのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(2,'block','forget')">その場ではわかるけど、あとで出てこない</button>
+          <button type="button" class="option" onclick="selectAnswer(2,'block','input')">最初の時点で頭に入る感じがしない</button>
+          <button type="button" class="option" onclick="selectAnswer(2,'block','solve')">理解した気はするけど、問題にすると止まる</button>
+          <button type="button" class="option" onclick="selectAnswer(2,'block','start')">後回しにしてしまう</button>
+          <button type="button" class="option" onclick="selectAnswer(2,'block','mistake')">うっかりミスが多い</button>
+          <button type="button" class="option" onclick="selectAnswer(2,'block','performance')">本番だけ急に崩れる</button>
+        </div>
+      </div>
+
+      <div id="step3" class="step">
+        <div class="stepno">STEP 3 / 15</div>
+        <h2>今いちばん変えたいのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(3,'block','forget')">覚えておける感じ</button>
+          <button type="button" class="option" onclick="selectAnswer(3,'block','input')">入ってくる感じ</button>
+          <button type="button" class="option" onclick="selectAnswer(3,'block','solve')">解ける感じ</button>
+          <button type="button" class="option" onclick="selectAnswer(3,'block','start')">始めやすさ</button>
+          <button type="button" class="option" onclick="selectAnswer(3,'block','mistake')">ミスの減り方</button>
+          <button type="button" class="option" onclick="selectAnswer(3,'block','performance')">本番での安定感</button>
+        </div>
+      </div>
+
+      <div id="step4" class="step">
+        <div class="stepno">STEP 4 / 15</div>
+        <h2>新しい内容に入るとき、一番しっくりくるのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(4,'entry','overview')">まず全体像を見る</button>
+          <button type="button" class="option" onclick="selectAnswer(4,'entry','read')">まず文章で読む</button>
+          <button type="button" class="option" onclick="selectAnswer(4,'entry','listen')">まず説明を聞く</button>
+          <button type="button" class="option" onclick="selectAnswer(4,'entry','visual')">まず図や流れを見る</button>
+          <button type="button" class="option" onclick="selectAnswer(4,'entry','example')">まず具体例を見る</button>
+        </div>
+      </div>
+
+      <div id="step5" class="step">
+        <div class="stepno">STEP 5 / 15</div>
+        <h2>説明がわかりやすいと感じるのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(5,'entry','overview')">先に結論があるとき</button>
+          <button type="button" class="option" onclick="selectAnswer(5,'entry','read')">文章で順番に説明されるとき</button>
+          <button type="button" class="option" onclick="selectAnswer(5,'entry','listen')">口頭で流れを聞けるとき</button>
+          <button type="button" class="option" onclick="selectAnswer(5,'entry','visual')">図や表で示されるとき</button>
+          <button type="button" class="option" onclick="selectAnswer(5,'entry','example')">具体例から入るとき</button>
+        </div>
+      </div>
+
+      <div id="step6" class="step">
+        <div class="stepno">STEP 6 / 15</div>
+        <h2>わかりにくい単元のとき、自然にやるのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(6,'entry','overview')">目次や全体像を探す</button>
+          <button type="button" class="option" onclick="selectAnswer(6,'entry','read')">とりあえず読む</button>
+          <button type="button" class="option" onclick="selectAnswer(6,'entry','listen')">誰かの説明を聞く</button>
+          <button type="button" class="option" onclick="selectAnswer(6,'entry','visual')">図にして整理する</button>
+          <button type="button" class="option" onclick="selectAnswer(6,'entry','example')">例題を見て考える</button>
+        </div>
+      </div>
+
+      <div id="step7" class="step">
+        <div class="stepno">STEP 7 / 15</div>
+        <h2>覚えたはずなのに抜けるとき、近いのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(7,'cause','read_only')">読んだだけで終わっている</button>
+          <button type="button" class="option" onclick="selectAnswer(7,'cause','same_day')">その日にしか触れていない</button>
+          <button type="button" class="option" onclick="selectAnswer(7,'cause','no_recall')">思い出す練習が少ない</button>
+          <button type="button" class="option" onclick="selectAnswer(7,'cause','overload')">一気に詰め込みすぎる</button>
+          <button type="button" class="option" onclick="selectAnswer(7,'cause','mix_up')">似た内容と混ざりやすい</button>
+        </div>
+      </div>
+
+      <div id="step8" class="step">
+        <div class="stepno">STEP 8 / 15</div>
+        <h2>復習でやりがちなのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(8,'cause','read_only')">同じところを何度も読む</button>
+          <button type="button" class="option" onclick="selectAnswer(8,'cause','notes_only')">ノートを見返す</button>
+          <button type="button" class="option" onclick="selectAnswer(8,'cause','listen_only')">解説を聞き直す</button>
+          <button type="button" class="option" onclick="selectAnswer(8,'cause','visual_only')">図や表を見返す</button>
+          <button type="button" class="option" onclick="selectAnswer(8,'cause','few_questions')">問題で使う量が少ない</button>
+        </div>
+      </div>
+
+      <div id="step9" class="step">
+        <div class="stepno">STEP 9 / 15</div>
+        <h2>本当に残りやすいと感じるのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(9,'cause','repeat_touch')">繰り返し触れたとき</button>
+          <button type="button" class="option" onclick="selectAnswer(9,'cause','self_recall')">自分で思い出したとき</button>
+          <button type="button" class="option" onclick="selectAnswer(9,'cause','explain')">人に説明したとき</button>
+          <button type="button" class="option" onclick="selectAnswer(9,'cause','redraw')">図で再現できたとき</button>
+          <button type="button" class="option" onclick="selectAnswer(9,'cause','use_in_question')">問題で使えたとき</button>
+        </div>
+      </div>
+
+      <div id="step10" class="step">
+        <div class="stepno">STEP 10 / 15</div>
+        <h2>「わかるのに解けない」とき、近いのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(10,'cause','read_and_done')">読んで納得して止まりやすい</button>
+          <button type="button" class="option" onclick="selectAnswer(10,'cause','see_answer_early')">答えを見るのが早い</button>
+          <button type="button" class="option" onclick="selectAnswer(10,'cause','late_practice')">問題演習に入るのが遅い</button>
+          <button type="button" class="option" onclick="selectAnswer(10,'cause','cant_pull')">知識を引き出しにくい</button>
+          <button type="button" class="option" onclick="selectAnswer(10,'cause','cant_start_answer')">答え始めがつかみにくい</button>
+        </div>
+      </div>
+
+      <div id="step11" class="step">
+        <div class="stepno">STEP 11 / 15</div>
+        <h2>勉強の最後はどうなりやすい？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(11,'cause','read_and_done')">読んで満足する</button>
+          <button type="button" class="option" onclick="selectAnswer(11,'cause','notes_and_done')">まとめて終わる</button>
+          <button type="button" class="option" onclick="selectAnswer(11,'cause','no_time_questions')">問題までいく時間が足りない</button>
+          <button type="button" class="option" onclick="selectAnswer(11,'cause','one_question_only')">1問だけで終わる</button>
+          <button type="button" class="option" onclick="selectAnswer(11,'cause','shallow_review')">間違い直しが浅い</button>
+        </div>
+      </div>
+
+      <div id="step12" class="step">
+        <div class="stepno">STEP 12 / 15</div>
+        <h2>問題演習で止まりやすいのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(12,'cause','first_question')">最初の1問目</button>
+          <button type="button" class="option" onclick="selectAnswer(12,'cause','recall_stage')">思い出す段階</button>
+          <button type="button" class="option" onclick="selectAnswer(12,'cause','changed_format')">問い方が変わったとき</button>
+          <button type="button" class="option" onclick="selectAnswer(12,'cause','explain_needed')">記述や説明が必要なとき</button>
+          <button type="button" class="option" onclick="selectAnswer(12,'cause','timed')">時間を測るとき</button>
+        </div>
+      </div>
+
+      <div id="step13" class="step">
+        <div class="stepno">STEP 13 / 15</div>
+        <h2>勉強が止まりやすい一番の原因は？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(13,'cause','start_high')">最初のハードルが高い</button>
+          <button type="button" class="option" onclick="selectAnswer(13,'cause','too_much')">量の設定が重すぎる</button>
+          <button type="button" class="option" onclick="selectAnswer(13,'cause','perfect')">完璧にやろうとしすぎる</button>
+          <button type="button" class="option" onclick="selectAnswer(13,'cause','far_deadline')">締切が遠いと動きにくい</button>
+          <button type="button" class="option" onclick="selectAnswer(13,'cause','mood')">気分に左右されやすい</button>
+        </div>
+      </div>
+
+      <div id="step14" class="step">
+        <div class="stepno">STEP 14 / 15</div>
+        <h2>本番で崩れるとき、近いのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(14,'cause','blank')">緊張で飛びやすい</button>
+          <button type="button" class="option" onclick="selectAnswer(14,'cause','time_break')">時間配分が崩れやすい</button>
+          <button type="button" class="option" onclick="selectAnswer(14,'cause','review_bad')">見直しまで整わない</button>
+          <button type="button" class="option" onclick="selectAnswer(14,'cause','rush')">本番で焦りやすい</button>
+          <button type="button" class="option" onclick="selectAnswer(14,'cause','no_exam_practice')">本番形式への慣れが足りない</button>
+        </div>
+      </div>
+
+      <div id="step15" class="step">
+        <div class="stepno">STEP 15 / 15</div>
+        <h2>自分に一番必要そうなのは？</h2>
+        <div class="options">
+          <button type="button" class="option" onclick="selectAnswer(15,'plan','start_plan')">続けやすい始め方</button>
+          <button type="button" class="option" onclick="selectAnswer(15,'plan','memory_plan')">残る復習法</button>
+          <button type="button" class="option" onclick="selectAnswer(15,'plan','output_plan')">解けるまで持っていく練習</button>
+          <button type="button" class="option" onclick="selectAnswer(15,'plan','mistake_plan')">ミスを減らす確認法</button>
+          <button type="button" class="option" onclick="selectAnswer(15,'plan','exam_plan')">本番に近い練習</button>
+        </div>
+      </div>
+
+      <div id="result" class="step">
+        <div class="stepno">RESULT</div>
+        <span class="pill" id="resultMode"></span>
+        <h2>あなた向けの整理</h2>
+
+        <div class="resultbox">
+          <div class="label">主課題</div>
+          <div class="value" id="resultBlock"></div>
+
+          <div class="label">副課題</div>
+          <div class="value" id="resultSecondary"></div>
+
+          <div class="label">中でも近いのは</div>
+          <div class="value" id="resultSubtype"></div>
+
+          <div class="label">ひとことで言うと</div>
+          <div class="tip" id="resultSummary"></div>
+
+          <div class="label">入りやすい入口</div>
+          <div class="value" id="resultEntry"></div>
+
+          <div class="label">つまずきの原因候補</div>
+          <div class="value" id="resultCause"></div>
+
+          <div class="label">なぜ今それが起きやすいか</div>
+          <div class="note" id="resultWhy"></div>
+
+          <div class="label">最優先で直すこと</div>
+          <div class="tip" id="resultPriority"></div>
+
+          <div class="label">次に直したいこと</div>
+          <div class="note" id="resultNext"></div>
+
+          <div class="label">今日からやる1手</div>
+          <div class="note" id="resultToday"></div>
+        </div>
+
+        <div class="grid">
+          <div class="sectionbox">
+            <h3>あなたに合いやすい勉強の入り方</h3>
+            <p id="entryAdvice" class="note"></p>
+          </div>
+
+          <div class="sectionbox">
+            <h3>今はやらなくていいこと</h3>
+            <p id="dontDo" class="note"></p>
+          </div>
+        </div>
+
+        <div class="goodbox">
+          <h3>1週間後の目標</h3>
+          <p id="weekGoal" class="note"></p>
+          <h3 style="margin-top:14px;">1週間の改善方針</h3>
+          <ul id="weeklyPlan"></ul>
+        </div>
+
+        <div class="warnbox">
+          <h3>このタイプがハマりやすい失敗ルート</h3>
+          <p id="failureRoute" class="note"></p>
+          <h3 style="margin-top:14px;">この結果の使い方</h3>
+          <p id="useGuide" class="note"></p>
+        </div>
+
+        <div class="row">
+          <a class="btn" href="#" onclick="restartTest(event)">もう一度やる</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const answers={block:[],entry:[],cause:[],plan:[]};
+
+    const blockLabel={
+      forget:'定着ぬけ型',
+      input:'入力迷子型',
+      solve:'実戦変換型',
+      start:'始動ブレーキ型',
+      mistake:'取りこぼし型',
+      performance:'本番空転型'
+    };
+
+    const modeLabel={
+      forget:'定着立て直しモード',
+      input:'入口調整モード',
+      solve:'実戦変換モード',
+      start:'始動補助モード',
+      mistake:'取りこぼし修正モード',
+      performance:'本番再現モード'
+    };
+
+    const entryLabel={
+      overview:'全体像から入る',
+      read:'読んで整理する',
+      listen:'聞いてつかむ',
+      visual:'図や流れで見る',
+      example:'具体例から入る'
+    };
+
+    const causeLabel={
+      read_only:'読むだけで終わりやすい',
+      same_day:'その日にしか触れていない',
+      no_recall:'思い出す練習が少ない',
+      overload:'一気に詰め込みすぎる',
+      mix_up:'似た内容と混ざりやすい',
+      notes_only:'ノート見返し中心になりやすい',
+      listen_only:'聞き直し中心になりやすい',
+      visual_only:'図の見返し中心になりやすい',
+      few_questions:'問題で使う量が少ない',
+      repeat_touch:'繰り返し触れると残りやすい',
+      self_recall:'自分で思い出すと残りやすい',
+      explain:'説明すると整理しやすい',
+      redraw:'図で再現すると理解が深まりやすい',
+      use_in_question:'問題で使うと定着しやすい',
+      read_and_done:'読んで納得して止まりやすい',
+      see_answer_early:'答えを見るのが早い',
+      late_practice:'問題演習に入るのが遅い',
+      cant_pull:'知識を引き出す段階で止まりやすい',
+      cant_start_answer:'答え始めがつかみにくい',
+      notes_and_done:'まとめて終わりやすい',
+      no_time_questions:'問題までいく時間が足りない',
+      one_question_only:'出力が少ないまま終わりやすい',
+      shallow_review:'間違い直しが浅くなりやすい',
+      first_question:'最初の1問目が重い',
+      recall_stage:'思い出す段階で止まりやすい',
+      changed_format:'問い方が変わると使いにくい',
+      explain_needed:'記述や説明が必要だと止まりやすい',
+      timed:'時間制限で崩れやすい',
+      start_high:'始めるハードルが高い',
+      too_much:'量の設定が重すぎる',
+      perfect:'完璧にやろうとしすぎる',
+      far_deadline:'締切が遠いと動きにくい',
+      mood:'気分の影響を受けやすい',
+      blank:'緊張で飛びやすい',
+      time_break:'時間配分が崩れやすい',
+      review_bad:'見直しまで整わない',
+      rush:'本番で焦りやすい',
+      no_exam_practice:'本番形式への慣れが足りない'
+    };
+
+    const subtypeMap={
+      forget:{
+        read_only:{name:'取り出し不足タイプ',summary:'理解はしているのに、「出す練習」が少ないタイプです。',why:'読む・見るはできていても、何も見ずに思い出す回数が少ないと、「見たらわかる」で止まりやすくなります。',priority:'読む回数より、思い出す回数を増やすこと',next:'翌日以降にも短く触れる流れを作ること',today:'読んだあとに30秒だけ何も見ずに言い直してみてください。'},
+        same_day:{name:'一夜漬けタイプ',summary:'その日の中では入るけれど、翌日以降に薄れやすいタイプです。',why:'1日でまとめて触れるだけだと、その場の理解はあっても、時間が空いたあとに残りにくくなります。',priority:'翌日以降にもう一度短く触れること',next:'思い出す練習を足すこと',today:'今日やった内容を、明日1回だけ見返す予定を先に決めてください。'},
+        no_recall:{name:'取り出し不足タイプ',summary:'定着の弱さより、取り出し練習の不足が目立つタイプです。',why:'記憶は入れるだけでは残りにくく、思い出す動きを入れたときに強くなります。',priority:'毎回の勉強の最後に思い出す時間を固定すること',next:'似た内容の混線を減らすこと',today:'見出しだけ見て、中身を1つ言えるか試してみてください。'},
+        overload:{name:'詰め込み混線タイプ',summary:'量を一気に入れすぎて、整理より混線が起きやすいタイプです。',why:'細かい情報をまとめて入れるほど、似た内容が混ざって定着しにくくなります。',priority:'1回で入れる量を減らして、分けて触れること',next:'違いを言語化して混線を減らすこと',today:'今日は覚える量を半分にして、最後に1つだけ思い出してみてください。'},
+        mix_up:{name:'詰め込み混線タイプ',summary:'似た知識どうしが混ざって、取り出すときに迷いやすいタイプです。',why:'近い概念が頭の中で分かれていないと、知っていても答えるときに揺れやすくなります。',priority:'似たものを並べて違いを一言で言えるようにすること',next:'復習を読むだけで終わらせないこと',today:'混ざりやすい2つを並べて、「違いは何か」を1行で書いてみてください。'},
+        default:{name:'復習ずれタイプ',summary:'復習しているつもりでも、定着の形に変わり切っていないタイプです。',why:'読み返しや見直しだけでは、残る感覚が弱いままになりやすいです。',priority:'復習を「見る」から「出す」に寄せること',next:'翌日以降にも短く触れること',today:'復習の最後に、1つだけ隠して答えてみてください。'}
+      },
+      input:{
+        overview:{name:'入口ずれタイプ',summary:'細部より先に全体像が必要なタイプです。',why:'流れや地図がないまま細かい説明に入ると、どこを見ているのかわからなくなりやすいです。',priority:'本文の前に全体像を置くこと',next:'具体例も先に置いて入りやすさを上げること',today:'見出し・結論・流れだけを先に1分で確認してください。'},
+        read:{name:'説明形式ミスマッチタイプ',summary:'文章からは入れるけれど、形式がズレると入りにくいタイプです。',why:'自分に合う形式で整理されていないと、理解の前に負荷がかかりやすいです。',priority:'自分に入る形式を先に使うこと',next:'前提知識が足りない所を1つ補うこと',today:'まず文章で大枠を読んでから、他の資料に移ってみてください。'},
+        listen:{name:'説明形式ミスマッチタイプ',summary:'聞いた方が入るのに、読む前提で止まりやすいタイプです。',why:'理解の入口が耳寄りなのに、最初から文字だけで進めると負荷が増えやすいです。',priority:'先に音声や口頭説明で流れをつかむこと',next:'聞いた内容を自分の言葉でまとめること',today:'まず短い解説を聞いてから資料を見る順にしてみてください。'},
+        visual:{name:'説明形式ミスマッチタイプ',summary:'図や関係性が見えると理解しやすいタイプです。',why:'文章だけだと処理が重く、図にした瞬間に全体がつながることが多いです。',priority:'文字より先に図や流れを置くこと',next:'図を見たあとに本文へ戻ること',today:'本文に入る前に、関係図や流れ図を1つだけ見てください。'},
+        example:{name:'入口ずれタイプ',summary:'抽象論より先に具体例があると入るタイプです。',why:'例がないまま概念だけ聞くと、何の話かつかみにくくなりやすいです。',priority:'先に例を1つ置いてから本論に入ること',next:'全体像も合わせて確認すること',today:'その単元の具体例を1つ先に見つけてから読み始めてください。'},
+        default:{name:'前提不足タイプ',summary:'今の単元の前にある土台が少し抜けているタイプです。',why:'説明の入り方以前に、前提が足りないと理解が引っかかりやすくなります。',priority:'前提知識を1つだけ補うこと',next:'入り方を自分向けに調整すること',today:'わからない原因になっている前の単元を1つだけ確認してください。'}
+      },
+      solve:{
+        read_and_done:{name:'納得止まりタイプ',summary:'理解はあるのに、解く前に満足して止まりやすいタイプです。',why:'解説理解と自力解答の間には差があり、読むだけではその段差が残りやすいです。',priority:'理解の直後に1問だけ出力すること',next:'答えを見る前の思考時間を少し伸ばすこと',today:'解説を読み終えたら、その場で類題を1問だけ解いてください。'},
+        see_answer_early:{name:'納得止まりタイプ',summary:'自力で考える時間が短く、答えを見るのが早いタイプです。',why:'考える前に解説へ行くと、止まった場所が見えないまま理解した気になりやすいです。',priority:'答えを見る前に10秒だけ考えること',next:'理解後に1問だけ自力でやること',today:'次の問題で、答えを見る前に「何を使うか」だけ考えてみてください。'},
+        late_practice:{name:'演習着手遅れタイプ',summary:'問題演習に入るのが遅く、実戦変換が後ろにずれやすいタイプです。',why:'理解が十分になるまで待つほど、出力のタイミングが後ろへ下がりやすくなります。',priority:'完璧になる前に1問だけ解き始めること',next:'問い方の違う問題にも触れること',today:'理解が7割でもいいので、1問だけ先に解いてみてください。'},
+        cant_pull:{name:'引き出し停止タイプ',summary:'知識はあるのに、必要な場面で取り出しにくいタイプです。',why:'インプットはできていても、使う場面の反復が少ないと、思い出す段階で止まりやすくなります。',priority:'知識を引き出す練習を増やすこと',next:'答え始めの型を作ること',today:'何も見ずに「この問題で使う知識は何か」を先に言ってみてください。'},
+        changed_format:{name:'問い変化弱いタイプ',summary:'典型問題はできるのに、聞かれ方が変わると止まりやすいタイプです。',why:'知識が形ごとに固定されていて、少し問いが変わるとつながりにくくなっています。',priority:'似たテーマで問い方の違う問題に触れること',next:'最初の一文の型を持つこと',today:'同じテーマの問題を2問並べて、何が違うか見てみてください。'},
+        cant_start_answer:{name:'問い変化弱いタイプ',summary:'答え始めの形が見えず、手が止まりやすいタイプです。',why:'何を聞かれているかの整理が弱いと、知識があっても書き出しで詰まりやすくなります。',priority:'最初の一文や最初の手順を固定すること',next:'知識を引き出す練習を増やすこと',today:'問題を見たらまず「何を聞かれているか」を1文で言ってみてください。'},
+        default:{name:'引き出し停止タイプ',summary:'理解と実戦の間に橋渡しが足りないタイプです。',why:'読めばわかるけれど、使う練習が薄いと本番で止まりやすいです。',priority:'理解のあとに短い出力を固定すること',next:'問い方の違う問題にも触れること',today:'1問だけでいいので、自力で解く流れを入れてください。'}
+      },
+      start:{
+        start_high:{name:'ハードル過大タイプ',summary:'最初の一歩が重くなりすぎているタイプです。',why:'長時間・高完成度・全部やる前提があるほど、始める前に気持ちが止まりやすくなります。',priority:'最初のハードルを極端に下げること',next:'量ではなく開始回数を増やすこと',today:'今日は5分だけ、1ページだけ、1問だけのどれかにしてください。'},
+        too_much:{name:'ハードル過大タイプ',summary:'量の設定が重く、始まる前に疲れやすいタイプです。',why:'やる量を理想基準で決めるほど、開始の抵抗が強くなります。',priority:'量を半分以下にして開始回数を増やすこと',next:'完璧さを少し手放すこと',today:'今日のノルマを今の半分以下にしてみてください。'},
+        perfect:{name:'計画疲れタイプ',summary:'きれいに進めようとするほど、着手が遅れやすいタイプです。',why:'完璧な形で始めようとすると、準備段階でエネルギーを使い切りやすくなります。',priority:'雑でも始める方を優先すること',next:'締切や開始条件を小さくすること',today:'今日は整える前に、まず1動作だけ始めてください。'},
+        far_deadline:{name:'締切遠いと停止タイプ',summary:'余裕があるほど動きにくく、直前になると動けるタイプです。',why:'外側の締切が弱いと、開始のきっかけが作りにくくなっています。',priority:'小さい締切を自分で置くこと',next:'開始の最初の1動作を固定すること',today:'今日の中で終わる小さな締切を1つ決めてください。'},
+        mood:{name:'気分待ちタイプ',summary:'やる気が出てから動こうとして止まりやすいタイプです。',why:'気分を開始条件にすると、調子の悪い日はずっと動きにくくなります。',priority:'気分ではなく手順で始めること',next:'ノルマを軽くして再開しやすくすること',today:'やる気に関係なく始める最初の1動作を固定してください。'},
+        default:{name:'計画疲れタイプ',summary:'始める前の準備で重くなりやすいタイプです。',why:'考える量が多いほど、実際の開始が後ろにずれやすいです。',priority:'考える前に始める流れを作ること',next:'開始条件を小さくすること',today:'まずノートを開くなど、行動を1つ先にやってください。'}
+      },
+      mistake:{
+        review_bad:{name:'確認拡散タイプ',summary:'見直しはしているけれど、浅く広くなりやすいタイプです。',why:'毎回見る場所が違うと、確認したつもりでも同じミスが残りやすくなります。',priority:'確認ポイントを1つ固定すること',next:'自分のミス例を1つだけ意識すること',today:'今日からは「何を聞かれているか」だけ毎回確認してください。'},
+        rush:{name:'焦りミスタイプ',summary:'知識不足より、急ぎすぎでミスが出やすいタイプです。',why:'答えたい気持ちが先に立つと、条件や否定形の確認が飛びやすくなります。',priority:'答える前の1確認を固定すること',next:'時間がないときの確認手順を決めること',today:'答える前に、条件を1回だけ見直してください。'},
+        time_break:{name:'焦りミスタイプ',summary:'時間の圧で確認が雑になりやすいタイプです。',why:'本来はできる問題でも、時間が気になると確認手順が省略されやすいです。',priority:'時間がない中でもやる確認を1つ決めること',next:'解く順番を固定すること',today:'急いでいても必ず見るポイントを1つだけ決めてください。'},
+        blank:{name:'手順ぶれタイプ',summary:'緊張や状況変化で解き方の流れがぶれやすいタイプです。',why:'解く手順が固定されていないと、外的な負荷がかかったときにミスが増えやすくなります。',priority:'解く順番と確認順を固定すること',next:'見直しポイントも1つ固定すること',today:'問題を見る→答える前に条件確認、の流れを固定してみてください。'},
+        default:{name:'読み落としタイプ',summary:'知識はあるのに、条件や聞かれ方の見落としで落としやすいタイプです。',why:'読み取りが甘いと、正しい知識があっても答えに反映しきれなくなります。',priority:'条件確認を習慣化すること',next:'見直しポイントを増やしすぎないこと',today:'否定形・単位・条件を1回だけ指差し確認するつもりで見てください。'}
+      },
+      performance:{
+        blank:{name:'緊張停止タイプ',summary:'本番になると頭が真っ白になりやすいタイプです。',why:'知識がないというより、本番の緊張下で取り出す経験が少ない可能性があります。',priority:'少し緊張する形での再現練習を増やすこと',next:'時間を測る練習を混ぜること',today:'1問だけ時間を測って、本番のつもりで解いてみてください。'},
+        time_break:{name:'時間配分崩れタイプ',summary:'実力はあるのに、時間の使い方で崩れやすいタイプです。',why:'問題の難易度より、時間管理でリズムが崩れて全体が乱れやすくなっています。',priority:'時間を意識した練習を入れること',next:'焦っても守る確認を1つ作ること',today:'1問だけ制限時間を決めて解いてみてください。'},
+        no_exam_practice:{name:'本番再現不足タイプ',summary:'普段の勉強が安全で、本番形式とのギャップが大きいタイプです。',why:'理解は深まっていても、本番の条件で出す練習が少ないと実力を出しにくくなります。',priority:'本番に近い形式を普段から少し混ぜること',next:'見直しまで含めた練習をすること',today:'何も見ずに答える1問を、普段の勉強に入れてください。'},
+        review_bad:{name:'見直し不全タイプ',summary:'解くところまではいけても、最後の整えで点を落としやすいタイプです。',why:'見直しの手順が弱いと、本番で取りこぼしが残りやすくなります。',priority:'見直しポイントを固定すること',next:'時間を測って見直しまで練習すること',today:'最後にどこを確認するかを1つだけ決めて解いてください。'},
+        rush:{name:'時間配分崩れタイプ',summary:'焦りで判断が早まり、本来の実力より雑になりやすいタイプです。',why:'本番の負荷でペースが乱れると、知識より先に判断の粗さが出やすくなります。',priority:'焦っていても守る手順を1つ決めること',next:'本番形式での練習量を増やすこと',today:'本番形式で解くとき、必ずやる確認を1つだけ固定してください。'},
+        default:{name:'本番再現不足タイプ',summary:'普段の理解と本番の出し方の間に差があるタイプです。',why:'普段から本番に近い練習が少ないと、本番だけ別物になりやすいです。',priority:'本番要素を普段に混ぜること',next:'時間と見直しも含めて練習すること',today:'1問だけでいいので、本番のつもりでやってみてください。'}
+      }
+    };
+
+    const entryAdvice={
+      overview:'あなたは、細部から入るより先に全体の地図がある方が進みやすいタイプです。最初に見出し、流れ、結論だけ確認してから本題に入ると理解しやすくなります。',
+      read:'あなたは、文章で順番に整理していく形が合いやすいタイプです。ただし読むだけで終わりやすいので、最後に短い出力を足すと強くなります。',
+      listen:'あなたは、聞きながら流れをつかむ形が合いやすいタイプです。理解したあとに、自分の言葉で言い直す時間を少し入れると定着しやすくなります。',
+      visual:'あなたは、図や流れでつかむと理解が深まりやすいタイプです。整理したあとに、図を見ずに再現するか問題を1問解くと使える形になります。',
+      example:'あなたは、具体例があると一気にイメージが持てるタイプです。例を見たあとに似た問題へすぐ移ると、理解が実戦に結びつきやすくなります。'
+    };
+
+    const dontDo={
+      forget:'今は暗記量を増やしすぎなくて大丈夫です。まず必要なのは、覚える量より「思い出す動き」を増やすことです。',
+      input:'今は細かい暗記から無理に入らなくて大丈夫です。まずは入りやすい順番を作る方が効果が出やすいです。',
+      solve:'今は参考書を増やしたり、読む量を増やしたりしなくて大丈夫です。まずは理解のあとに1問だけ出力する形を作る方が先です。',
+      start:'今は長時間やる前提を作らなくて大丈夫です。まずは始められる設定を作る方が優先です。',
+      mistake:'今は確認項目を増やしすぎなくて大丈夫です。1個だけ固定した方が実際には減りやすいです。',
+      performance:'今は知識をさらに増やしすぎなくて大丈夫です。まずは本番形式で出す練習を足す方が実用的です。'
+    };
+
+    const useGuide={
+      forget:'この結果は、「もっと頑張る」より「残る形に変える」を優先するときに使ってください。まずは1週間、思い出す動きを毎回入れるだけで十分です。',
+      input:'この結果は、「理解力がない」と思う代わりに「入り方を変える」と考えるためのものです。入口を変えてもダメなら、前提知識の不足も確認してください。',
+      solve:'この結果は、「もっと読む」より「少し早く解く」に切り替えるためのものです。1問だけでいいので出力を固定すると変化が出やすいです。',
+      start:'この結果は、「やる気を出す」より「始める設定を軽くする」ために使ってください。続ける前に、まず開始回数を作るのが先です。',
+      mistake:'この結果は、「自分は雑だ」で終わらせず、確認を仕組みに変えるために使ってください。毎回同じ確認を入れるだけでも安定しやすくなります。',
+      performance:'この結果は、「本番に弱い」で終わらせず、普段の勉強に本番要素を足すために使ってください。量より再現度を上げるのが大事です。'
+    };
+
+    const failureRoutes={
+      forget:'読んで安心する → 見返して終わる → できた気がする → 数日後に出てこない、という流れに入りやすいです。',
+      input:'細かいところから入る → 何の話かわからなくなる → 苦手意識がつく → さらに入りにくくなる、という流れに入りやすいです。',
+      solve:'解説を読む → 納得する → 問題は後回し → 本番で止まる、という流れに入りやすいです。',
+      start:'今日は完璧にやろうとする → 重く感じる → 後回しにする → さらに始めにくくなる、という流れに入りやすいです。',
+      mistake:'なんとなく解く → なんとなく見直す → 同じミスが残る → 自信が落ちる、という流れに入りやすいです。',
+      performance:'普段は理解中心で進む → 本番形式は後回し → 試験で焦る → 実力より低く出る、という流れに入りやすいです。'
+    };
+
+    const weekGoals={
+      memory_plan:'1週間後に、「見たらわかる」だけでなく、1つは何も見ずに言える内容が増えている状態を目指します。',
+      output_plan:'1週間後に、理解した内容を少なくとも数回は問題で使えた状態を目指します。',
+      start_plan:'1週間後に、気分に関係なく短くでも始められる日が増えている状態を目指します。',
+      mistake_plan:'1週間後に、毎回同じ確認を入れられて、同じミスが少し減った状態を目指します。',
+      exam_plan:'1週間後に、本番形式でも1問は落ち着いて解ける感覚が出てくる状態を目指します。'
+    };
+
+    const weeklyPlans={
+      memory_plan:[
+        '1日目: 読んだあと30秒だけ何も見ずに思い出す。',
+        '2日目: 前日の内容を1回だけ見直して、1つだけ口で言う。',
+        '3日目: 見出しだけ見て中身を言えるか確認する。',
+        '4〜5日目: 同じ流れを短く繰り返す。',
+        '6〜7日目: 覚えたい内容を1問か1項目だけ隠して答える。'
+      ],
+      output_plan:[
+        '毎回の勉強の最後に1問だけ解く。',
+        '間違えた理由を1行で残す。',
+        '解説を見たら、その場で類題を1問だけやる。',
+        '3日目以降は「読むだけで終わらない日」を増やす。',
+        '1週間で最低3回、理解のあとに出力を入れる。'
+      ],
+      start_plan:[
+        '最初のノルマを5分に固定する。',
+        '始める前に「最初の1動作」だけ決める。',
+        '量より開始回数を優先して1週間続ける。',
+        'できた日は長さより「始められたこと」を記録する。',
+        '3日坊主でも止めずに、再開の速さを重視する。'
+      ],
+      mistake_plan:[
+        '確認ポイントを1つに絞る。',
+        '毎回同じ確認を答えの前に入れる。',
+        '自分のミス例を1つだけ意識して解く。',
+        '見直しは広くではなく固定ポイントだけ見る。',
+        '1週間で「同じミスが減ったか」を記録する。'
+      ],
+      exam_plan:[
+        '1問だけ時間を測って解く。',
+        '何も見ずに答える練習を混ぜる。',
+        '見直しまで含めて本番形式を1回入れる。',
+        '焦ったときの確認手順を1つ決める。',
+        '1週間で2〜3回、本番に近い形を再現する。'
+      ]
+    };
+
+    function showStep(id){
+      document.querySelectorAll('.step').forEach(function(el){
+        el.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function getCounts(arr){
+      const counts={};
+      arr.forEach(function(v){
+        counts[v]=(counts[v]||0)+1;
+      });
+      return counts;
+    }
+
+    function chooseMost(arr){
+      const counts=getCounts(arr);
+      let best=arr[0];
+      let max=-1;
+      for(const key in counts){
+        if(counts[key]>max){
+          best=key;
+          max=counts[key];
+        }
+      }
+      return best;
+    }
+
+    function chooseSecond(arr,first){
+      const counts=getCounts(arr);
+      delete counts[first];
+      let best='';
+      let max=-1;
+      for(const key in counts){
+        if(counts[key]>max){
+          best=key;
+          max=counts[key];
+        }
+      }
+      return best||first;
+    }
+
+    function getSubtype(block,cause){
+      const group=subtypeMap[block];
+      return group[cause]||group.default;
+    }
+
+    function renderResult(){
+      const mainBlock=chooseMost(answers.block);
+      const subBlock=chooseSecond(answers.block,mainBlock);
+      const entry=chooseMost(answers.entry);
+      const cause=chooseMost(answers.cause);
+      const plan=chooseMost(answers.plan);
+      const subtype=getSubtype(mainBlock,cause);
+
+      document.getElementById('resultMode').textContent=modeLabel[mainBlock];
+      document.getElementById('resultBlock').textContent=blockLabel[mainBlock];
+      document.getElementById('resultSecondary').textContent=blockLabel[subBlock];
+      document.getElementById('resultSubtype').textContent=subtype.name;
+      document.getElementById('resultSummary').textContent=subtype.summary;
+      document.getElementById('resultEntry').textContent=entryLabel[entry];
+      document.getElementById('resultCause').textContent=causeLabel[cause];
+      document.getElementById('resultWhy').textContent=subtype.why;
+      document.getElementById('resultPriority').textContent=subtype.priority;
+      document.getElementById('resultNext').textContent=subtype.next;
+      document.getElementById('resultToday').textContent=subtype.today;
+      document.getElementById('entryAdvice').textContent=entryAdvice[entry];
+      document.getElementById('dontDo').textContent=dontDo[mainBlock];
+      document.getElementById('weekGoal').textContent=weekGoals[plan];
+      document.getElementById('failureRoute').textContent=failureRoutes[mainBlock];
+      document.getElementById('useGuide').textContent=useGuide[mainBlock];
+
+      const weekly=document.getElementById('weeklyPlan');
+      weekly.innerHTML='';
+      weeklyPlans[plan].forEach(function(item){
+        const li=document.createElement('li');
+        li.textContent=item;
+        weekly.appendChild(li);
+      });
+
+      showStep('result');
+    }
+
+    function selectAnswer(step,group,value){
+      answers[group].push(value);
+      if(step<15){
+        showStep('step'+(step+1));
+      }else{
+        renderResult();
+      }
+    }
+
+    function restartTest(e){
+      e.preventDefault();
+      answers.block=[];
+      answers.entry=[];
+      answers.cause=[];
+      answers.plan=[];
+      showStep('step1');
+    }
+  </script>
+</body>
+</html>
