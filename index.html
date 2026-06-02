@@ -6,38 +6,43 @@
   <title>Study Switch | 勉強の詰まりチェック 5問版</title>
   <style>
     :root{
-      --bg:#f6f7fb;
+      --bg:#f7f5f0;
       --card:#ffffff;
-      --text:#1f2430;
-      --sub:#5f6b85;
-      --accent:#6f7bf7;
-      --accent2:#eef1ff;
-      --line:#e5e9f4;
-      --ok:#eef7ee;
-      --okline:#d8ebd8;
+      --text:#20242a;
+      --sub:#5f6874;
+      --accent:#246b5f;
+      --accent2:#e7f3ef;
+      --warm:#c45f3f;
+      --warm2:#fff0e8;
+      --ink:#26394f;
+      --line:#e1ded6;
+      --ok:#edf7f1;
+      --okline:#cfe8d8;
+      --shadow:0 12px 32px rgba(35,45,55,.08);
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
-      background:var(--bg);
+      background:
+        linear-gradient(180deg,#fbfaf6 0%,#f7f5f0 45%,#eef4f1 100%);
       color:var(--text);
       line-height:1.7;
     }
     .wrap{
-      max-width:800px;
+      max-width:860px;
       margin:0 auto;
       padding:20px 16px 56px;
     }
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:24px;
+      border-radius:8px;
       padding:24px 18px;
-      box-shadow:0 8px 24px rgba(34,52,110,.05);
+      box-shadow:var(--shadow);
     }
     .hero{
-      background:linear-gradient(180deg,#ffffff 0%, #f5f7ff 100%);
+      background:#fffdf8;
     }
     .eyebrow{
       display:inline-block;
@@ -45,7 +50,7 @@
       color:var(--accent);
       background:var(--accent2);
       padding:6px 10px;
-      border-radius:999px;
+      border-radius:8px;
       margin-bottom:14px;
       font-weight:700;
     }
@@ -53,7 +58,7 @@
       font-size:30px;
       line-height:1.3;
       margin:0 0 12px;
-      letter-spacing:-0.02em;
+      letter-spacing:0;
     }
     h2{
       font-size:22px;
@@ -64,6 +69,32 @@
       color:var(--sub);
       margin:0;
       font-size:16px;
+    }
+    .topbar{
+      display:grid;
+      gap:10px;
+      margin:22px 0 4px;
+    }
+    .progressMeta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      color:var(--sub);
+      font-size:13px;
+      font-weight:700;
+    }
+    .progressTrack{
+      height:10px;
+      background:#ece8de;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progressFill{
+      width:20%;
+      height:100%;
+      background:linear-gradient(90deg,var(--accent),var(--warm));
+      transition:width .2s ease;
     }
     .step{
       margin-top:18px;
@@ -89,21 +120,30 @@
       text-align:left;
       border:1px solid var(--line);
       background:#fff;
-      border-radius:16px;
+      border-radius:8px;
       padding:16px 14px;
       color:var(--text);
       font-size:16px;
       cursor:pointer;
+      min-height:58px;
+      transition:background .15s ease,border-color .15s ease,transform .15s ease;
     }
     button.option:hover{
-      border-color:#cfd7ff;
-      background:#fafbff;
+      border-color:#b8d6ca;
+      background:#f7fbf9;
+      transform:translateY(-1px);
+    }
+    button.option:focus-visible,
+    .navbtn:focus-visible,
+    .cta:focus-visible{
+      outline:3px solid #f3c6b2;
+      outline-offset:2px;
     }
     .pill{
       display:inline-block;
       font-size:13px;
       padding:4px 10px;
-      border-radius:999px;
+      border-radius:8px;
       background:var(--accent2);
       color:var(--accent);
       font-weight:700;
@@ -111,10 +151,9 @@
     }
     .resultbox{
       margin-top:18px;
-      padding:16px;
-      border-radius:18px;
-      background:#f9faff;
-      border:1px solid var(--line);
+      padding:18px 0 4px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
     .label{
       font-size:13px;
@@ -132,6 +171,62 @@
       line-height:1.5;
       margin-bottom:12px;
     }
+    .actionList{
+      display:grid;
+      gap:10px;
+      padding:0;
+      margin:12px 0 0;
+      list-style:none;
+    }
+    .actionList li{
+      display:grid;
+      grid-template-columns:28px 1fr;
+      gap:10px;
+      align-items:start;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+    }
+    .num{
+      display:grid;
+      place-items:center;
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      color:#fff;
+      background:var(--ink);
+      font-size:13px;
+      font-weight:800;
+    }
+    .summary{
+      margin-top:16px;
+      display:grid;
+      gap:8px;
+      color:var(--sub);
+      font-size:14px;
+    }
+    .summary span{
+      display:inline-block;
+      color:var(--text);
+      font-weight:700;
+      margin-left:4px;
+    }
+    .copyArea{
+      width:100%;
+      min-height:132px;
+      margin-top:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      color:var(--text);
+      background:#fff;
+      font:inherit;
+      resize:vertical;
+    }
+    .copyArea[hidden]{
+      display:none;
+    }
     .note{
       color:var(--sub);
       font-size:15px;
@@ -139,10 +234,17 @@
     .offer{
       margin-top:18px;
       padding:16px;
-      border-radius:18px;
+      border-radius:8px;
       background:var(--ok);
       border:1px solid var(--okline);
       display:none;
+    }
+    .deepDive{
+      margin-top:12px;
+      padding:16px;
+      border-radius:8px;
+      background:var(--warm2);
+      border:1px solid #f0cdbd;
     }
     .cta{
       display:inline-block;
@@ -151,13 +253,39 @@
       background:var(--accent);
       color:#fff;
       text-decoration:none;
-      border-radius:14px;
+      border-radius:8px;
       font-weight:700;
+      border:1px solid transparent;
+      cursor:pointer;
+      font:inherit;
     }
     .cta.secondary{
       background:#fff;
       color:var(--accent);
-      border:1px solid #cfd7ff;
+      border:1px solid #b8d6ca;
+    }
+    .cta.warm{
+      background:var(--warm);
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-top:18px;
+    }
+    .navbtn{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--sub);
+      border-radius:8px;
+      padding:10px 12px;
+      min-height:42px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .navbtn[hidden]{
+      display:none;
     }
     .row{
       display:flex;
@@ -176,9 +304,19 @@
       word-break:break-all;
       margin-top:8px;
     }
+    .miniList{
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--sub);
+      font-size:14px;
+    }
+    .miniList li{
+      margin:4px 0;
+    }
     @media (min-width:700px){
       .wrap{padding-top:28px}
       .card{padding:30px 28px}
+      .options{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
@@ -191,6 +329,15 @@
         性格を決める診断ではありません。<br>
         今のあなたに合いそうな <strong>「次の1手」</strong> を見つけます。
       </p>
+      <div class="topbar" aria-label="診断の進捗">
+        <div class="progressMeta">
+          <span id="progressText">STEP 1 / 5</span>
+          <span id="answeredText">未回答</span>
+        </div>
+        <div class="progressTrack" aria-hidden="true">
+          <div class="progressFill" id="progressFill"></div>
+        </div>
+      </div>
 
       <div id="step1" class="step active">
         <div class="stepno">STEP 1 / 5</div>
@@ -266,24 +413,44 @@
           <div class="label">まずやる1手</div>
           <div class="tip" id="resultTip"></div>
 
+          <div class="label">今日の進め方</div>
+          <ul class="actionList" id="resultActions"></ul>
+
           <div class="label">一言補足</div>
           <div class="note" id="resultNote"></div>
 
           <div class="label">今いちばん変えたいこと</div>
           <div class="note" id="resultGoal"></div>
+
+          <div class="summary" id="answerSummary"></div>
         </div>
 
         <div id="noteOffer" class="offer">
           <strong id="offerTitle">さらに詳しく知りたい人へ</strong><br>
-          <span id="offerDesc">このタイプ向けのnote記事を用意しています。</span><br>
-          <a class="cta" id="noteLink" href="#" target="_blank">noteで詳しい改善法を見る</a>
+          <span id="offerDesc">このタイプ向けの詳しい無料ガイドを用意しています。</span><br>
+          <a class="cta" id="noteLink" href="#">タイプ別ガイドを見る</a>
           <div class="smallcode">リンク先: <span id="noteUrlText"></span></div>
-          <div class="muted">noteのURLが変わるなら、このリンク先だけ差し替えればOKです。</div>
+        </div>
+
+        <div class="deepDive">
+          <strong>もっと自分用に絞りたい人へ</strong><br>
+          <span class="note">15問版では、5問版では見えにくい主課題・副課題・今やらなくていいことまで整理します。まずはタイプ別ガイドで詳しく読めます。</span>
+          <ul class="miniList">
+            <li>主課題と副課題の切り分け</li>
+            <li>1週間の改善目標</li>
+            <li>今は増やさなくていい勉強</li>
+          </ul>
+          <a class="cta warm" id="plusLink" href="#">タイプ別ガイドで詳しく見る</a>
         </div>
 
         <div class="row">
+          <button class="cta warm" type="button" id="copyBtn">結果をコピー</button>
           <a class="cta secondary" href="#" id="restartBtn">もう一度やる</a>
         </div>
+        <textarea class="copyArea" id="copyArea" readonly hidden aria-label="コピー用の結果テキスト"></textarea>
+      </div>
+      <div class="nav" id="stepNav">
+        <button class="navbtn" type="button" id="backBtn" hidden>前に戻る</button>
       </div>
     </div>
   </div>
@@ -296,6 +463,15 @@
       start: 'https://note.com/charm_prawn1128/n/na8ed825558e5',
       input: 'https://note.com/charm_prawn1128/n/nd197d870e6ec',
       forget: 'https://note.com/charm_prawn1128/n/n97908dd71446'
+    };
+
+    const TYPE_URLS = {
+      forget: 'types/forget.html',
+      input: 'types/input.html',
+      solve: 'types/solve.html',
+      start: 'types/start.html',
+      mistake: 'types/mistake.html',
+      performance: 'types/performance.html'
     };
 
     const OFFER_TEXT = {
@@ -326,6 +502,7 @@
     };
 
     const answers = { q1:null, q2:null, q3:null, q4:null, q5:null };
+    let currentStep = 1;
 
     const blockLabel = {
       forget: '覚えたのに、すぐ抜ける',
@@ -409,9 +586,60 @@
       }
     };
 
+    const actionPlans = {
+      forget: [
+        '見ずに思い出す時間を30秒だけ作る',
+        '出てこなかった語句を2つだけ見直す',
+        '最後にもう1回、何も見ずに言い直す'
+      ],
+      input: [
+        '全体像を1つだけ先に見る',
+        'わからない言葉を1つだけ言い換える',
+        '短い例に当てはめて確認する'
+      ],
+      solve: [
+        '説明を閉じて1問だけ解く',
+        '止まった場所を1行で書く',
+        '解説を読んだら同じ型をもう1問試す'
+      ],
+      start: [
+        '机に出すものを1つだけ決める',
+        '2分だけ手を動かす',
+        '続けるか休むかを2分後に決める'
+      ],
+      mistake: [
+        '問題文の聞かれている部分に印をつける',
+        '計算か条件を1つだけ確認する',
+        '間違いの型を短い言葉で残す'
+      ],
+      performance: [
+        '時間を決めて1問だけ解く',
+        '見直しの順番を固定する',
+        '終わったら焦った場面を1つだけメモする'
+      ]
+    };
+
+    function updateProgress(step){
+      currentStep = step;
+      const inResult = step > 5;
+      const answered = Object.values(answers).filter(Boolean).length;
+      const percent = inResult ? 100 : Math.max(20, step * 20);
+
+      document.getElementById('progressText').textContent = inResult ? 'RESULT' : `STEP ${step} / 5`;
+      document.getElementById('answeredText').textContent = inResult ? '完了' : `${answered}問回答`;
+      document.getElementById('progressFill').style.width = `${percent}%`;
+      document.getElementById('backBtn').hidden = step <= 1 || inResult;
+      document.getElementById('stepNav').style.display = inResult ? 'none' : 'flex';
+    }
+
     function showStep(id){
       document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+      if(id === 'result'){
+        updateProgress(6);
+      } else {
+        updateProgress(Number(id.replace('step','')));
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -450,6 +678,10 @@
     function renderResult(){
       const block = chooseBlock();
       const entry = chooseEntry();
+      const copyArea = document.getElementById('copyArea');
+      copyArea.hidden = true;
+      copyArea.value = '';
+      document.getElementById('copyBtn').textContent = '結果をコピー';
 
       document.getElementById('resultMode').textContent = modeLabel[block];
       document.getElementById('resultBlock').textContent = blockLabel[block];
@@ -457,11 +689,20 @@
       document.getElementById('resultTip').textContent = tips[block][entry];
       document.getElementById('resultNote').textContent = notes[block];
       document.getElementById('resultGoal').textContent = goalLabel[answers.q5];
+      document.getElementById('resultActions').innerHTML = actionPlans[block].map((text, index) => `
+        <li><span class="num">${index + 1}</span><span>${text}</span></li>
+      `).join('');
+      document.getElementById('answerSummary').innerHTML = `
+        <div>最初の詰まり:<span>${blockLabel[answers.q1]}</span></div>
+        <div>入口の傾向:<span>${entryLabel[answers.q2]} / ${entryLabel[answers.q4]}</span></div>
+        <div>勉強後の傾向:<span>${blockLabel[answers.q3]}</span></div>
+      `;
 
-      const noteUrl = NOTE_URLS[block];
+      const typeUrl = TYPE_URLS[block];
       const text = OFFER_TEXT[block];
-      document.getElementById('noteLink').href = noteUrl;
-      document.getElementById('noteUrlText').textContent = noteUrl;
+      document.getElementById('noteLink').href = typeUrl;
+      document.getElementById('plusLink').href = typeUrl;
+      document.getElementById('noteUrlText').textContent = typeUrl;
       document.getElementById('offerTitle').textContent = text.title;
       document.getElementById('offerDesc').textContent = text.desc;
       document.getElementById('noteOffer').style.display = 'block';
@@ -493,6 +734,65 @@
       });
     });
 
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if(currentStep <= 1) return;
+      answers[`q${currentStep - 1}`] = null;
+      showStep(`step${currentStep - 1}`);
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const copyBtn = e.currentTarget;
+      const text = [
+        'Study Switch 結果',
+        `今の詰まり: ${document.getElementById('resultBlock').textContent}`,
+        `入口: ${document.getElementById('resultEntry').textContent}`,
+        `今日の1手: ${document.getElementById('resultTip').textContent}`,
+        `補足: ${document.getElementById('resultNote').textContent}`
+      ].join('\n');
+      copyBtn.textContent = 'コピー中...';
+
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly','');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      let copied = false;
+      try{
+        copied = document.execCommand('copy');
+      }catch(err){
+        copied = false;
+      }
+      textarea.remove();
+
+      if(!copied && navigator.clipboard){
+        try{
+          await Promise.race([
+            navigator.clipboard.writeText(text),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 600))
+          ]);
+          copied = true;
+        }catch(err){
+          copied = false;
+        }
+      }
+
+      if(copied){
+        copyBtn.textContent = 'コピーしました';
+        setTimeout(() => { copyBtn.textContent = '結果をコピー'; }, 1600);
+      }else{
+        const copyArea = document.getElementById('copyArea');
+        copyArea.value = text;
+        copyArea.hidden = false;
+        copyArea.focus();
+        copyArea.select();
+        copyBtn.textContent = '手動でコピー';
+      }
+    });
+
     document.getElementById('restartBtn').addEventListener('click', (e) => {
       e.preventDefault();
       answers.q1 = null;
@@ -502,6 +802,8 @@
       answers.q5 = null;
       showStep('step1');
     });
+
+    updateProgress(1);
   </script>
 </body>
 </html>
