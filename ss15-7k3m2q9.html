@@ -148,6 +148,14 @@
       font-weight:700;
       margin-bottom:12px;
     }
+    .value.withNote{
+      margin-bottom:4px;
+    }
+    .subnote{
+      color:var(--sub);
+      font-size:13px;
+      margin:0 0 12px;
+    }
     .tip{
       font-size:18px;
       font-weight:800;
@@ -181,6 +189,68 @@
       background:#fff;
       color:var(--accent);
       cursor:pointer;
+      font:inherit;
+    }
+    .btn.primary{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+    .copyArea{
+      width:100%;
+      min-height:150px;
+      margin-top:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      color:var(--text);
+      font:inherit;
+      resize:vertical;
+    }
+    .copyArea[hidden]{
+      display:none;
+    }
+    #weeklyPlan{
+      list-style:none;
+      padding:0;
+      margin:10px 0 0;
+      counter-reset:week;
+    }
+    #weeklyPlan li{
+      position:relative;
+      padding:12px 12px 12px 44px;
+      border:1px solid var(--goodline);
+      border-radius:14px;
+      background:#fff;
+    }
+    #weeklyPlan li::before{
+      counter-increment:week;
+      content:counter(week);
+      position:absolute;
+      left:12px;
+      top:12px;
+      width:24px;
+      height:24px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#dff0e5;
+      color:#2b6840;
+      font-size:13px;
+      font-weight:800;
+    }
+    .todayBox{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+    .todayBox strong{
+      display:block;
+      font-size:18px;
+      margin-bottom:6px;
     }
     .grid{
       display:grid;
@@ -397,7 +467,8 @@
           <div class="value" id="resultBlock"></div>
 
           <div class="label">副課題</div>
-          <div class="value" id="resultSecondary"></div>
+          <div class="value withNote" id="resultSecondary"></div>
+          <p class="subnote" id="resultSecondaryNote"></p>
 
           <div class="label">中でも近いのは</div>
           <div class="value" id="resultSubtype"></div>
@@ -450,9 +521,16 @@
           <p id="useGuide" class="note"></p>
         </div>
 
+        <div class="todayBox">
+          <strong>今日やることはこれだけ</strong>
+          <p id="finalAction" class="note"></p>
+        </div>
+
         <div class="row">
+          <button class="btn primary" type="button" onclick="copyResult(event)">結果をコピー</button>
           <a class="btn" href="#" onclick="restartTest(event)">もう一度やる</a>
         </div>
+        <textarea class="copyArea" id="copyArea" readonly hidden aria-label="コピー用の結果テキスト"></textarea>
       </div>
     </div>
   </div>
@@ -702,6 +780,19 @@
       return best||first;
     }
 
+    function secondaryText(mainBlock,subBlock){
+      if(subBlock===mainBlock){
+        return {
+          label:'同じ傾向が強め',
+          note:`回答全体で「${blockLabel[mainBlock]}」がかなり強く出ています。まず主課題に絞って直す方が効果が出やすい状態です。`
+        };
+      }
+      return {
+        label:blockLabel[subBlock],
+        note:`主課題ほどではありませんが、「${blockLabel[subBlock]}」も混ざっています。主課題が少し落ち着いたら次に見るポイントです。`
+      };
+    }
+
     function getSubtype(block,cause){
       const group=subtypeMap[block];
       return group[cause]||group.default;
@@ -714,10 +805,12 @@
       const cause=chooseMost(answers.cause);
       const plan=chooseMost(answers.plan);
       const subtype=getSubtype(mainBlock,cause);
+      const secondary=secondaryText(mainBlock,subBlock);
 
       document.getElementById('resultMode').textContent=modeLabel[mainBlock];
       document.getElementById('resultBlock').textContent=blockLabel[mainBlock];
-      document.getElementById('resultSecondary').textContent=blockLabel[subBlock];
+      document.getElementById('resultSecondary').textContent=secondary.label;
+      document.getElementById('resultSecondaryNote').textContent=secondary.note;
       document.getElementById('resultSubtype').textContent=subtype.name;
       document.getElementById('resultSummary').textContent=subtype.summary;
       document.getElementById('resultEntry').textContent=entryLabel[entry];
@@ -731,6 +824,7 @@
       document.getElementById('weekGoal').textContent=weekGoals[plan];
       document.getElementById('failureRoute').textContent=failureRoutes[mainBlock];
       document.getElementById('useGuide').textContent=useGuide[mainBlock];
+      document.getElementById('finalAction').textContent=`まずは今日、${subtype.today}`;
 
       const weekly=document.getElementById('weeklyPlan');
       weekly.innerHTML='';
@@ -741,6 +835,69 @@
       });
 
       showStep('result');
+    }
+
+    function resultText(){
+      return [
+        'Study Switch 15問版 結果',
+        `主課題: ${document.getElementById('resultBlock').textContent}`,
+        `副課題: ${document.getElementById('resultSecondary').textContent}`,
+        `中分類: ${document.getElementById('resultSubtype').textContent}`,
+        `入りやすい入口: ${document.getElementById('resultEntry').textContent}`,
+        `つまずきの原因候補: ${document.getElementById('resultCause').textContent}`,
+        `最優先で直すこと: ${document.getElementById('resultPriority').textContent}`,
+        `今日やること: ${document.getElementById('resultToday').textContent}`,
+        `1週間後の目標: ${document.getElementById('weekGoal').textContent}`,
+        '1週間の改善方針:',
+        ...Array.from(document.querySelectorAll('#weeklyPlan li')).map((li,i)=>`${i+1}. ${li.textContent}`),
+        `今はやらなくていいこと: ${document.getElementById('dontDo').textContent}`
+      ].join('\n');
+    }
+
+    async function copyResult(e){
+      e.preventDefault();
+      const btn=e.currentTarget;
+      const text=resultText();
+      btn.textContent='コピー中...';
+      let copied=false;
+
+      const textarea=document.createElement('textarea');
+      textarea.value=text;
+      textarea.setAttribute('readonly','');
+      textarea.style.position='fixed';
+      textarea.style.left='-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try{
+        copied=document.execCommand('copy');
+      }catch(err){
+        copied=false;
+      }
+      textarea.remove();
+
+      if(!copied&&navigator.clipboard){
+        try{
+          await Promise.race([
+            navigator.clipboard.writeText(text),
+            new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),600))
+          ]);
+          copied=true;
+        }catch(err){
+          copied=false;
+        }
+      }
+
+      if(copied){
+        btn.textContent='コピーしました';
+        setTimeout(()=>{btn.textContent='結果をコピー';},1600);
+      }else{
+        const copyArea=document.getElementById('copyArea');
+        copyArea.value=text;
+        copyArea.hidden=false;
+        copyArea.focus();
+        copyArea.select();
+        btn.textContent='手動でコピー';
+      }
     }
 
     function selectAnswer(step,group,value){
